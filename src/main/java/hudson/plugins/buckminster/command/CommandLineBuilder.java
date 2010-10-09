@@ -3,13 +3,13 @@ package hudson.plugins.buckminster.command;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
-import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
+import hudson.model.TaskListener;
+import hudson.model.AbstractBuild;
 import hudson.model.Computer;
 import hudson.model.Hudson;
 import hudson.model.JDK;
 import hudson.model.Node;
-import hudson.model.TaskListener;
 import hudson.plugins.buckminster.BuckminsterInstallation;
 import hudson.plugins.buckminster.EclipseBuckminsterBuilder;
 import hudson.plugins.buckminster.install.BuckminsterInstallable;
@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +80,7 @@ public class CommandLineBuilder {
 
 		commandList.add(getJavaExecutable(listener, launcher, build));
 		
-		Map<String, String> properties = new HashMap<String, String>(build.getEnvironment(listener));
+		Map<String, String> properties = new CaseInsensitiveMap(build.getEnvironment(listener));
 		properties.putAll(build.getBuildVariables());
 		
 		addJVMProperties(commandList, properties);
@@ -104,7 +103,7 @@ public class CommandLineBuilder {
 		return commandList;
 	}
 
-	private String getJavaExecutable(BuildListener listener, Launcher launcher, AbstractBuild<?,?> build) throws IOException,
+	String getJavaExecutable(BuildListener listener, Launcher launcher, AbstractBuild<?,?> build) throws IOException,
 			InterruptedException {
 
 		
@@ -143,7 +142,7 @@ public class CommandLineBuilder {
 		return "java";
 	}
 
-	private FilePath getCommandFilePath(AbstractBuild<?, ?> build,
+	FilePath getCommandFilePath(AbstractBuild<?, ?> build,
 			Map<String, String> properties) {
 		// the file listing all the commands since buckminster doesn't accept
 		// several commands as programm arguments
@@ -171,12 +170,12 @@ public class CommandLineBuilder {
 		return additionalParams;
 	}
 
-	private void writeCommandFile(FilePath commandsPath, Map<String, String> properties)
+	void writeCommandFile(FilePath commandsPath, Map<String, String> properties)
 			throws IOException, InterruptedException {
 		commandsPath.write(expandProperties(getCommands(), properties), "UTF-8");
 	}
 
-	private void addStarterParameters(AbstractBuild<?,?> build, List<String> commandList, Map<String, String> properties)
+	void addStarterParameters(AbstractBuild<?,?> build, List<String> commandList, Map<String, String> properties)
 			throws IOException, InterruptedException {
 		commandList.add("-jar");
 		commandList.add(findEquinoxLauncher());
@@ -193,7 +192,7 @@ public class CommandLineBuilder {
 		commandList.add(workspace);
 	}
 
-	private String getDataPath(AbstractBuild<?, ?> build,
+	String getDataPath(AbstractBuild<?, ?> build,
 			Map<String, String> properties) throws IOException, InterruptedException {
 		if(userWorkspace==null || userWorkspace.length()==0)
 		{
@@ -202,7 +201,7 @@ public class CommandLineBuilder {
 		return expandProperties(userWorkspace, properties);
 	}
 
-	private void addJVMProperties(List<String> commandList, Map<String, String> properties) throws IOException, InterruptedException {
+	void addJVMProperties(List<String> commandList, Map<String, String> properties) throws IOException, InterruptedException {
 		//temp and output root
 		commandList.add(MessageFormat.format("-Dbuckminster.output.root={0}",getOutputDir(properties)));
 		commandList.add(MessageFormat.format("-Dbuckminster.temp.root={0}",getTempDir(properties)));
@@ -231,7 +230,7 @@ public class CommandLineBuilder {
 		}
 	}
 
-	private Object getTempDir(Map<String, String> properties) {
+	Object getTempDir(Map<String, String> properties) {
 		if(userTemp==null || userTemp.length()==0)
 		{
 			return hudsonWorkspaceRoot.child("buckminster.temp").getRemote();
@@ -239,7 +238,7 @@ public class CommandLineBuilder {
 		return hudsonWorkspaceRoot.child(expandProperties(userTemp, properties)).getRemote();
 	}
 
-	private String getOutputDir(Map<String, String> properties) {
+	String getOutputDir(Map<String, String> properties) {
 		if(userOutput==null || userOutput.length()==0)
 		{
 			return hudsonWorkspaceRoot.child("buckminster.output").getRemote();
@@ -247,8 +246,8 @@ public class CommandLineBuilder {
 		return hudsonWorkspaceRoot.child(expandProperties(userOutput, properties)).getRemote();
 	}
 
-	private String expandProperties(String string, Map<String, String> properties) {
-		Pattern pattern = Pattern.compile("\\$\\{(.*?)\\}");
+	String expandProperties(String string, Map<String, String> properties) {
+		Pattern pattern = Pattern.compile("\\$\\{(.*?)\\}",Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(string);
 		while(matcher.find()){
 			if(matcher.group(1)!=null){
@@ -262,8 +261,7 @@ public class CommandLineBuilder {
 					else{
 						replacement = properties.get(matcher.group(1));
 					}
-					string = string.replace(matcher.group(0), replacement);
-					
+					string = string.replace(matcher.group(0), replacement);	
 				}
 			}
 		}
@@ -284,7 +282,7 @@ public class CommandLineBuilder {
 	 * @throws InterruptedException 
 	 * @see EclipseBuckminsterBuilder#getEclipseHome()
 	 */
-	private String findEquinoxLauncher() throws IOException, InterruptedException {
+	String findEquinoxLauncher() throws IOException, InterruptedException {
 		FilePath installationHome =  Computer.currentComputer().getNode().createPath(getInstallation().getHome());
 		FilePath pluginDir = installationHome.child("plugins");
 		if(!pluginDir.exists())
@@ -361,11 +359,15 @@ public class CommandLineBuilder {
 	}
 
 	
-	private static String toCSV(Collection<String> values) {
+	static String toCSV(Collection<String> values) {
 		return toCSV(values,", ");
 	}
 	
-	private static String toCSV(Collection<String> values, String separator) {
+	static String toCSV(Collection<String> values, String separator) {
+		if(values==null)
+			throw new IllegalArgumentException("values is null");
+		if(values.isEmpty())
+			return "";
 		StringBuilder builder = new StringBuilder();
 		for (String value : values) {
 				builder.append(value);

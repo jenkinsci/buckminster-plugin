@@ -209,7 +209,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 		}
 		
 		/**
-		 * Asks hudson for all available {@link AbstractProject}s and iterates over their {@link PublisherList}.
+		 * Asks hudson for all available {@link AbstractProject}s and iterates over the available {@link Publisher}s.
 		 * <p>
 		 * If a {@link TargetPlatformPublisher} is found and it offers a {@link TargetPlatformReference}, that reference is added to the result list.
 		 * 

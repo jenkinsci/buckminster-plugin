@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+    <parent>
+  	<artifactId>plugin</artifactId>
+  	<groupId>org.jvnet.hudson.plugins</groupId>
+  	<version>1.355</version>
+  	<relativePath>../pom.xml</relativePath>
+  </parent>
+  
+  <artifactId>buckminster</artifactId>
+  <packaging>hpi</packaging>
+  <name>Buckminster</name>
+  <version>1.0.4</version>
+
+  <description>Integrates Eclipse Buckminster as a builder in Hudson</description>
+  <url>http://wiki.hudson-ci.org/display/HUDSON/Buckminster+PlugIn</url>
+  <developers>
+  	<developer>
+  		<id>jutzig</id>
+  		<name>Johannes Utzig</name>
+  		<email>mail@jutzig.de </email>
+  	</developer>
+  </developers>
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/buckminster-1.0.4</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/buckminster-1.0.4</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/tags/buckminster-1.0.4</url>
+  </scm>
+</project>

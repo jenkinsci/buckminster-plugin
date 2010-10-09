@@ -60,7 +60,7 @@ public class CommandLineBuilderTest {
 	public void testWriteCommandFile() {
 		FilePath mockPath = new FilePath(new File("target/test/command/test.txt"));
 		String commands = "test ${property}test\n${ProPeRTY}property";
-		CommandLineBuilder builder = new CommandLineBuilder(null, commands, null, null, null, null, null, null);
+		CommandLineBuilder builder = new CommandLineBuilder(null, commands, null, null, null, null, null, null, null);
 		Map<String, String> properties = new CaseInsensitiveMap();
 		properties.put("property", "replacement");
 		try {

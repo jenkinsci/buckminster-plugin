@@ -45,14 +45,14 @@ public class CommandLineBuilder {
 	private String userTemp;
 	private String userOutput;
 	private String userCommandFile;
+	private String propertyFile;
 	
 
 	public CommandLineBuilder(BuckminsterInstallation installation,
 			String commands, String logLevel, String additionalParams,
 			String userWorkspace, String userTemp, String userOutput,
-			String userCommandFile) {
-		super();
-		this.installation = installation;
+			String userCommandFile, String propertyFile) {
+		this(installation);
 		this.commands = commands;
 		this.logLevel = logLevel;
 		this.additionalParams = additionalParams;
@@ -60,8 +60,59 @@ public class CommandLineBuilder {
 		this.userTemp = userTemp;
 		this.userOutput = userOutput;
 		this.userCommandFile = userCommandFile;
+		this.propertyFile = propertyFile;
+	}
+	
+	CommandLineBuilder(BuckminsterInstallation installation) {
+		this.installation = installation;
 	}
 
+	public static CommandLineBuilder forInstallation(BuckminsterInstallation installation){
+		return new CommandLineBuilder(installation);
+	}
+	
+	public CommandLineBuilder commands(String commands){
+		this.commands = commands;
+		return this;
+	}
+	
+	public CommandLineBuilder loglevel(String loglevel){
+		this.logLevel = loglevel;
+		return this;
+	}
+	
+	public CommandLineBuilder additionalParams(String additionalParams){
+		this.additionalParams = additionalParams;
+		return this;
+	}
+	
+	public CommandLineBuilder userWorkspace(String userWorkspace){
+		this.userWorkspace = userWorkspace;
+		return this;
+	}
+	
+	public CommandLineBuilder userTemp(String userTemp){
+		this.userTemp = userTemp;
+		return this;
+	}
+	
+	public CommandLineBuilder userOutput(String userOutput){
+		this.userOutput = userOutput;
+		return this;
+	}
+	
+	
+	public CommandLineBuilder userCommandFile(String userCommandFile){
+		this.userCommandFile = userCommandFile;
+		return this;
+	}
+	
+	
+	public CommandLineBuilder propertyFile(String propertyFile){
+		this.propertyFile = propertyFile;
+		return this;
+	}
+	
 	/**
 	 * fills an arraylist with all program arguments for buckminster
 	 * 
@@ -92,6 +143,13 @@ public class CommandLineBuilder {
 
 		 commandList.add("--loglevel");
 		 commandList.add(getLogLevel());
+		 
+		 //add a parameter for global properties if defined
+		 if(getPropertyFile()!=null && getPropertyFile().length()>0)
+		 {
+			 commandList.add("-P");
+			 commandList.add(expandProperties(getPropertyFile(), properties));
+		 }
 		// Tell Buckminster about the command file
 		commandList.add("-S");
 		commandList.add(commandsPath.getRemote());
@@ -168,6 +226,10 @@ public class CommandLineBuilder {
 
 	public String getAdditionalParams() {
 		return additionalParams;
+	}
+	
+	public String getPropertyFile() {
+		return propertyFile;
 	}
 
 	void writeCommandFile(FilePath commandsPath, Map<String, String> properties)

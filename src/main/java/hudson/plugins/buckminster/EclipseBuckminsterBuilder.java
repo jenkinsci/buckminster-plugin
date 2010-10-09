@@ -61,10 +61,10 @@ import org.kohsuke.stapler.StaplerResponse;
  */
 public class EclipseBuckminsterBuilder extends Builder {
 
-	private final String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace;
+	private final String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace, globalPropertiesFile;
 
 	@DataBoundConstructor
-	public EclipseBuckminsterBuilder(String installationName, String commands, String logLevel, String params, String targetPlatformName, String userTemp, String userOutput, String userCommand, String userWorkspace) {
+	public EclipseBuckminsterBuilder(String installationName, String commands, String logLevel, String params, String targetPlatformName, String userTemp, String userOutput, String userCommand, String userWorkspace, String globalPropertiesFile) {
 		this.installationName = installationName;
 		this.commands = commands;
 		this.logLevel = logLevel;
@@ -74,6 +74,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 		this.userOutput = userOutput;
 		this.userCommand = userCommand;
 		this.userWorkspace = userWorkspace;
+		this.globalPropertiesFile = globalPropertiesFile;
 	}
 
 	/**
@@ -161,7 +162,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 			if(targetPlatform!=null && targetPlatform.getPath()!=null){
 				modifiedCommands = "setpref targetPlatformPath=\""+targetPlatform.getPath()+"\"" +"\n" + modifiedCommands;
 			}
-			CommandLineBuilder cmdBuilder = new CommandLineBuilder(installation,modifiedCommands,getLogLevel(),getParams(),getUserWorkspace(),getUserTemp(),getUserOutput(), getUserCommand());
+			CommandLineBuilder cmdBuilder = CommandLineBuilder.forInstallation(installation).commands(modifiedCommands).loglevel(getLogLevel()).additionalParams(getParams()).userWorkspace(getUserWorkspace()).userTemp(getUserTemp()).userOutput(getUserOutput()).userCommandFile(getUserCommand()).propertyFile(getGlobalPropertiesFile());
 			List<String> buildCommands = cmdBuilder.buildCommands(build,listener, launcher);
 			Proc proc = launcher.launch().envs(build.getEnvironment(listener)).pwd(build.getWorkspace()).cmds(buildCommands).stdout(listener).start();
 			return proc.join()==0;
@@ -172,6 +173,10 @@ public class EclipseBuckminsterBuilder extends Builder {
 			return false;
 		}
 
+	}
+
+	public String getGlobalPropertiesFile() {
+		return globalPropertiesFile;
 	}
 
 	private BuckminsterInstallation pickDefault(BuildListener listener) {
@@ -292,8 +297,8 @@ public class EclipseBuckminsterBuilder extends Builder {
 		public FormValidation doCheckEclipseVersion(StaplerRequest req,
 				StaplerResponse rsp) throws IOException, ServletException {
 			final String version = req.getParameter("value");
-			if (!(version.startsWith("3.4") || version.startsWith("3.5"))) {
-				return FormValidation.error("Eclipse version is not valid. Currently only 3.4.x and 3.5 are supported.");
+			if (!(version.startsWith("3.4") || version.startsWith("3.5") || version.startsWith("3.6") || version.startsWith("3.7"))) {
+				return FormValidation.error("Eclipse version is not valid. Currently only 3.4, 3.5, 3.6 and 3.7 are supported.");
 				
 			}
 
@@ -304,6 +309,17 @@ public class EclipseBuckminsterBuilder extends Builder {
          * Performs on-the-fly validation on the file mask wildcard.
          */
         public FormValidation doCheckUserCommand(@AncestorInPath AbstractProject<?,?> project, @QueryParameter String value) throws IOException {
+            FilePath path = project.getSomeWorkspace();
+            if(path==null)
+            	//we tried, but we couldn't get a workspace
+            	return FormValidation.ok();
+        	return path.validateRelativePath(value, true, true);
+        }
+        
+        /**
+         * Performs on-the-fly validation for the global properties file
+         */
+        public FormValidation doCheckGlobalPropertiesFile(@AncestorInPath AbstractProject<?,?> project, @QueryParameter String value) throws IOException {
             FilePath path = project.getSomeWorkspace();
             if(path==null)
             	//we tried, but we couldn't get a workspace

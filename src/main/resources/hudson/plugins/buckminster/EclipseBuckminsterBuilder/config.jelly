@@ -57,6 +57,9 @@
      	  <f:entry title="${%Change Temp Dir}" help="${rootURL}/plugin/buckminster/help-customTemp.html">
     		<f:textbox name="userTemp" value="${instance.getUserTemp()}" />
    		 </f:entry>
+   		 <f:entry title="${%Global Properties File}" help="${rootURL}/plugin/buckminster/help-globalProperties.html">
+    		<f:textbox name="globalPropertiesFile" value="${instance.getGlobalPropertiesFiles()}" />
+   		 </f:entry>
  		 <f:entry title="${%JVM Arguments}" help="${rootURL}/plugin/buckminster/help-jobVMArgs.html">
     		<f:textarea name="eclipse.params" value="${instance.getParams()}" />
    		 </f:entry>

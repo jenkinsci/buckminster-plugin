@@ -220,7 +220,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 		 * 
 		 * @return a list of all {@link TargetPlatformReference}s published by a {@link TargetPlatformPublisher}
 		 */
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		public List<TargetPlatformReference> getTargetPlatforms() {	
 			
 			List<AbstractProject> projects = Hudson.getInstance().getAllItems(AbstractProject.class);
@@ -361,7 +361,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 			formData);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		@Override
 		public boolean isApplicable(Class<? extends AbstractProject> jobType) {
 			return FreeStyleProject.class.isAssignableFrom(jobType) || MatrixProject.class.isAssignableFrom(jobType);

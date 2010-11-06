@@ -1,7 +1,6 @@
 package hudson.plugins.buckminster.command;
 
 import hudson.FilePath;
-import hudson.Functions;
 import hudson.Launcher;
 import hudson.model.BuildListener;
 import hudson.model.TaskListener;
@@ -12,8 +11,8 @@ import hudson.model.JDK;
 import hudson.model.Node;
 import hudson.plugins.buckminster.BuckminsterInstallation;
 import hudson.plugins.buckminster.EclipseBuckminsterBuilder;
+import hudson.plugins.buckminster.callables.GetDirectorExecutable;
 import hudson.plugins.buckminster.install.BuckminsterInstallable;
-import hudson.remoting.Callable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -372,17 +371,7 @@ public class CommandLineBuilder {
 	{
 		List<String> commands = new ArrayList<String>();
 		
-		String executableName = toolDir.getChannel().call(new Callable<String, IOException>() {
-
-			private static final long serialVersionUID = 2062576798236698029L;
-
-			public String call() throws IOException {
-				if(Functions.isWindows())
-					return "director.bat";
-				return "director";
-			}
-			
-		});
+		String executableName = toolDir.getChannel().call(new GetDirectorExecutable());
 		String directorInvocation = toolDir.child("director").child(executableName).getRemote();
 		
 		commands.add(directorInvocation);

@@ -24,7 +24,9 @@ public class CaseInsensitiveMap extends HashMap<String, String> {
 	}
 
 	public CaseInsensitiveMap(Map<? extends String, ? extends String> m) {
-		super(m);
+		//super(m) would bypass the overridden put method and we would end up with lower case keys 
+		super(m.size());
+		putAll(m);
 	}
 
 	@Override

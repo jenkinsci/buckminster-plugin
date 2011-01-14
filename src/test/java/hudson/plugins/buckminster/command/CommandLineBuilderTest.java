@@ -2,13 +2,11 @@ package hudson.plugins.buckminster.command;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
 import hudson.FilePath;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +58,7 @@ public class CommandLineBuilderTest {
 	public void testWriteCommandFile() {
 		FilePath mockPath = new FilePath(new File("target/test/command/test.txt"));
 		String commands = "test ${property}test\n${ProPeRTY}property";
-		CommandLineBuilder builder = new CommandLineBuilder(null, commands, null, null, null, null, null, null, null);
+		CommandLineBuilder builder = new CommandLineBuilder(null, commands, null, null, null, null, null, null, null, null);
 		Map<String, String> properties = new CaseInsensitiveMap();
 		properties.put("property", "replacement");
 		try {
@@ -118,6 +116,8 @@ public class CommandLineBuilderTest {
 	public void testCreateDirectorScriptBuckminsterInstallableFilePathNodeTaskListenerSetOfStringSetOfStringSetOfString() {
 		//TODO: implement test
 	}
+	
+
 
 	@Test
 	public void testToCSVCollectionOfString() {
@@ -148,4 +148,22 @@ public class CommandLineBuilderTest {
 		assertEquals("", result);
 	}
 
+	
+	@Test
+	public void testAddEquinoxLauncherProperties(){
+		
+		CommandLineBuilder builder = CommandLineBuilder.forInstallation(null).equinoxLauncherArgs("test\n${test}\n${test2}");
+		List<String> expected = new ArrayList<String>(); 
+		builder.addEquinoxLauncherProperties(expected, getDummyProperties());
+		assertEquals(3, expected.size());
+		assertEquals("test", expected.get(0));
+		assertEquals("foobar", expected.get(1));
+		assertEquals("${test2}", expected.get(2));
+	}
+	
+	private Map<String, String>getDummyProperties(){
+		Map<String, String> map = new CaseInsensitiveMap();
+		map.put("test", "foobar");
+		return map;
+	}
 }

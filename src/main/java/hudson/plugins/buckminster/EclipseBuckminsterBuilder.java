@@ -61,10 +61,10 @@ import org.kohsuke.stapler.StaplerResponse;
  */
 public class EclipseBuckminsterBuilder extends Builder {
 
-	private final String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace, globalPropertiesFile;
+	private final String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace, globalPropertiesFile, equinoxLauncherArgs;
 
 	@DataBoundConstructor
-	public EclipseBuckminsterBuilder(String installationName, String commands, String logLevel, String params, String targetPlatformName, String userTemp, String userOutput, String userCommand, String userWorkspace, String globalPropertiesFile) {
+	public EclipseBuckminsterBuilder(String installationName, String commands, String logLevel, String params, String targetPlatformName, String userTemp, String userOutput, String userCommand, String userWorkspace, String globalPropertiesFile, String equinoxLauncherArgs) {
 		this.installationName = installationName;
 		this.commands = commands;
 		this.logLevel = logLevel;
@@ -75,6 +75,7 @@ public class EclipseBuckminsterBuilder extends Builder {
 		this.userCommand = userCommand;
 		this.userWorkspace = userWorkspace;
 		this.globalPropertiesFile = globalPropertiesFile;
+		this.equinoxLauncherArgs = equinoxLauncherArgs;
 	}
 
 	/**
@@ -90,6 +91,10 @@ public class EclipseBuckminsterBuilder extends Builder {
 	
 	public String getParams() {
 		return params;
+	}
+	
+	public String getEquinoxLauncherArgs() {
+		return equinoxLauncherArgs;
 	}
 	
 	public String getUserWorkspace() {
@@ -162,15 +167,14 @@ public class EclipseBuckminsterBuilder extends Builder {
 			if(targetPlatform!=null && targetPlatform.getPath()!=null){
 				modifiedCommands = "setpref targetPlatformPath=\""+targetPlatform.getPath()+"\"" +"\n" + modifiedCommands;
 			}
-			CommandLineBuilder cmdBuilder = CommandLineBuilder.forInstallation(installation).commands(modifiedCommands).loglevel(getLogLevel()).additionalParams(getParams()).userWorkspace(getUserWorkspace()).userTemp(getUserTemp()).userOutput(getUserOutput()).userCommandFile(getUserCommand()).propertyFile(getGlobalPropertiesFile());
+			CommandLineBuilder cmdBuilder = CommandLineBuilder.forInstallation(installation).commands(modifiedCommands).loglevel(getLogLevel()).additionalParams(getParams()).userWorkspace(getUserWorkspace()).userTemp(getUserTemp()).userOutput(getUserOutput()).userCommandFile(getUserCommand()).propertyFile(getGlobalPropertiesFile()).equinoxLauncherArgs(getEquinoxLauncherArgs());
 			List<String> buildCommands = cmdBuilder.buildCommands(build,listener, launcher);
 			Proc proc = launcher.launch().envs(build.getEnvironment(listener)).pwd(build.getWorkspace()).cmds(buildCommands).stdout(listener).start();
 			return proc.join()==0;
 
 		} 
 		catch (Exception e) {
-			listener.error(e.getLocalizedMessage());
-			return false;
+			throw new RuntimeException(e);
 		}
 
 	}

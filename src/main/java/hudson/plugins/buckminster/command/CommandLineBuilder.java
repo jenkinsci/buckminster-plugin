@@ -39,6 +39,7 @@ public class CommandLineBuilder {
 	private String commands;
 	private String logLevel;
 	private String additionalParams;
+	private String equinoxLauncherArgs;
 	private FilePath hudsonWorkspaceRoot;
 	private String userWorkspace;
 	private String userTemp;
@@ -50,7 +51,7 @@ public class CommandLineBuilder {
 	public CommandLineBuilder(BuckminsterInstallation installation,
 			String commands, String logLevel, String additionalParams,
 			String userWorkspace, String userTemp, String userOutput,
-			String userCommandFile, String propertyFile) {
+			String userCommandFile, String propertyFile, String equinoxLauncherArgs) {
 		this(installation);
 		this.commands = commands;
 		this.logLevel = logLevel;
@@ -60,6 +61,7 @@ public class CommandLineBuilder {
 		this.userOutput = userOutput;
 		this.userCommandFile = userCommandFile;
 		this.propertyFile = propertyFile;
+		this.equinoxLauncherArgs = equinoxLauncherArgs;
 	}
 	
 	CommandLineBuilder(BuckminsterInstallation installation) {
@@ -82,6 +84,11 @@ public class CommandLineBuilder {
 	
 	public CommandLineBuilder additionalParams(String additionalParams){
 		this.additionalParams = additionalParams;
+		return this;
+	}
+	
+	public CommandLineBuilder equinoxLauncherArgs(String equinoxLauncherArgs){
+		this.equinoxLauncherArgs = equinoxLauncherArgs;
 		return this;
 	}
 	
@@ -227,6 +234,10 @@ public class CommandLineBuilder {
 		return additionalParams;
 	}
 	
+	public String getEquinoxLauncherArgs() {
+		return equinoxLauncherArgs;
+	}
+	
 	public String getPropertyFile() {
 		return propertyFile;
 	}
@@ -241,6 +252,10 @@ public class CommandLineBuilder {
 		commandList.add("-jar");
 		commandList.add(findEquinoxLauncher());
 
+		//add additional arguments for the equinox launcher
+		addEquinoxLauncherProperties(commandList, properties);
+			
+		
 		// Specify Eclipse Product
 		commandList.add("-application");
 		commandList.add("org.eclipse.buckminster.cmdline.headless");
@@ -251,6 +266,21 @@ public class CommandLineBuilder {
 		String workspace = getDataPath(build, properties);
 
 		commandList.add(workspace);
+	}
+
+	void addEquinoxLauncherProperties(List<String> commandList,
+			Map<String, String> properties) {
+		if(getEquinoxLauncherArgs()!=null)
+		{
+			String[] equinoxArgs = getEquinoxLauncherArgs().split("[\n\r]+");
+			for (int i = 0; i < equinoxArgs.length; i++) {
+				if(equinoxArgs[i].trim().length()>0){
+					String parameter = expandProperties(equinoxArgs[i],properties);
+					commandList.add(parameter);
+				}
+			}
+			
+		}
 	}
 
 	String getDataPath(AbstractBuild<?, ?> build,

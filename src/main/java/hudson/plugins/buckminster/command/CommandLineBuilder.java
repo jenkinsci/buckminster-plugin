@@ -297,17 +297,26 @@ public class CommandLineBuilder {
 		commandList.add(MessageFormat.format("-Dbuckminster.output.root={0}",getOutputDir(properties)));
 		commandList.add(MessageFormat.format("-Dbuckminster.temp.root={0}",getTempDir(properties)));
 		String params = getInstallation().getParams();
-		String[] globalVMParams = params.split("[\n\r]+");
+		if(params!=null)
+		{
+			String[] globalVMParams = params.split("[\n\r]+");
 
-		for (int i = 0; i < globalVMParams.length; i++) {
-			if(globalVMParams[i].trim().length()>0)
-				commandList.add(expandProperties(globalVMParams[i],properties));
+			for (int i = 0; i < globalVMParams.length; i++) {
+				if(globalVMParams[i].trim().length()>0)
+					commandList.add(expandProperties(globalVMParams[i],properties));
+			}
+			if(globalVMParams.length==0)
+			{
+				commandList.add("-Xmx512m");
+				commandList.add("-XX:PermSize=128m");
+			}
 		}
-		if(globalVMParams.length==0)
+		else
 		{
 			commandList.add("-Xmx512m");
 			commandList.add("-XX:PermSize=128m");
 		}
+
 		//job vm setting (properties)
 		String jobParams = getAdditionalParams();
 		if(jobParams!=null){

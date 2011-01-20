@@ -61,7 +61,7 @@ import org.kohsuke.stapler.StaplerResponse;
  */
 public class EclipseBuckminsterBuilder extends Builder {
 
-	private final String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace, globalPropertiesFile, equinoxLauncherArgs;
+	private String installationName, commands, logLevel, params, targetPlatformName, userTemp, userOutput, userCommand, userWorkspace, globalPropertiesFile, equinoxLauncherArgs;
 
 	@DataBoundConstructor
 	public EclipseBuckminsterBuilder(String installationName, String commands, String logLevel, String params, String targetPlatformName, String userTemp, String userOutput, String userCommand, String userWorkspace, String globalPropertiesFile, String equinoxLauncherArgs) {
@@ -75,6 +75,94 @@ public class EclipseBuckminsterBuilder extends Builder {
 		this.userCommand = userCommand;
 		this.userWorkspace = userWorkspace;
 		this.globalPropertiesFile = globalPropertiesFile;
+		this.equinoxLauncherArgs = equinoxLauncherArgs;
+	}
+
+	/**
+	 * for unit tests
+	 * @param installationName
+	 */
+	public void setInstallationName(String installationName) {
+		this.installationName = installationName;
+	}
+
+	/**
+	 * for unit tests
+	 * @param commands
+	 */
+	public void setCommands(String commands) {
+		this.commands = commands;
+	}
+
+	/**
+	 * for unit tests
+	 * @param logLevel
+	 */
+	public void setLogLevel(String logLevel) {
+		this.logLevel = logLevel;
+	}
+
+	/**
+	 * for unit tests
+	 * @param params
+	 */
+	public void setParams(String params) {
+		this.params = params;
+	}
+
+	/**
+	 * for unit tests
+	 * @param targetPlatformName
+	 */
+	public void setTargetPlatformName(String targetPlatformName) {
+		this.targetPlatformName = targetPlatformName;
+	}
+
+	/**
+	 * for unit tests
+	 * @param userTemp
+	 */
+	public void setUserTemp(String userTemp) {
+		this.userTemp = userTemp;
+	}
+
+	/**
+	 * for unit tests
+	 * @param userOutput
+	 */
+	public void setUserOutput(String userOutput) {
+		this.userOutput = userOutput;
+	}
+
+	/**
+	 * for unit tests
+	 * @param userCommand
+	 */
+	public void setUserCommand(String userCommand) {
+		this.userCommand = userCommand;
+	}
+
+	/**
+	 * for unit tests
+	 * @param userWorkspace
+	 */
+	public void setUserWorkspace(String userWorkspace) {
+		this.userWorkspace = userWorkspace;
+	}
+
+	/**
+	 * for unit tests
+	 * @param globalPropertiesFile
+	 */
+	public void setGlobalPropertiesFile(String globalPropertiesFile) {
+		this.globalPropertiesFile = globalPropertiesFile;
+	}
+
+	/**
+	 * for unit tests
+	 * @param equinoxLauncherArgs
+	 */
+	public void setEquinoxLauncherArgs(String equinoxLauncherArgs) {
 		this.equinoxLauncherArgs = equinoxLauncherArgs;
 	}
 

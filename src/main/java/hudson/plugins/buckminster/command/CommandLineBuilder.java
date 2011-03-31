@@ -14,7 +14,6 @@ import hudson.plugins.buckminster.EclipseBuckminsterBuilder;
 import hudson.plugins.buckminster.callables.GetDirectorExecutable;
 import hudson.plugins.buckminster.install.BuckminsterInstallable;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -356,7 +355,10 @@ public class CommandLineBuilder {
 					if(matcher.group(1).equalsIgnoreCase("WORKSPACE")){
 						//special treatment for the workspace variable because the path has to be transformed into a unix path
 						//see: https://hudson.dev.java.net/issues/show_bug.cgi?id=4947
-						replacement = new File(properties.get("WORKSPACE")).toURI().getPath();
+						String path = properties.get("WORKSPACE");
+						if(!path.startsWith("/"))
+							path = "/"+path.replace("\\", "/");
+						replacement = path;
 					}
 					else{
 						replacement = properties.get(matcher.group(1));

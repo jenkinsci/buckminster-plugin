@@ -17,7 +17,12 @@
 		<developer>
 			<id>jutzig</id>
 			<name>Johannes Utzig</name>
-			<email>mail@jutzig.de </email>
+			<email>mail@jutzig.de</email>
+		</developer>
+		<developer>
+			<id>LorenzoBettini</id>
+			<name>Lorenzo Bettini</name>
+			<email>bettini@dsi.unifi.it</email>
 		</developer>
 	</developers>
 
@@ -28,10 +33,9 @@
 		</repository>
 	</distributionManagement>
 
-	<scm>
-		<connection>scm:svn:https://svn.jenkins-ci.org/trunk/hudson/plugins/buckminster</connection>
-		<developerConnection>scm:svn:https://svn.jenkins-ci.org/trunk/hudson/plugins/buckminster</developerConnection>
-	  <url>https://svn.java.net/svn/hudson~svn/trunk/hudson/plugins/buckminster</url>
+  <scm>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
   </scm>
 
 

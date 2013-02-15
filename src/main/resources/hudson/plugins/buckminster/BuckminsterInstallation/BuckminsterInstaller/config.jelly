@@ -16,7 +16,7 @@
       </j:otherwise>
     </j:choose>
   </f:entry>
-  <f:entry title="" field="update" help="${rootURL}/plugin/buckminster/help-update.html">
+  <f:entry title="" field="update" help="/plugin/buckminster/help-update.html">
     <f:checkbox/>
     <label class="attach-previous">${%Update before build}</label>
   </f:entry>

@@ -4,7 +4,7 @@
 
     See global.jelly for a general discussion about jelly script.
   -->
-  <!--f:entry title="Eclipse Home" help="${rootURL}/plugin/buckminster/help-projectEclipseHome.html"-->
+  <!--f:entry title="Eclipse Home" help="/plugin/buckminster/help-projectEclipseHome.html"-->
     <!--
       Creates an text field that shows the value of the "eclipseHome" property.
       When submitted, it will be passed to the corresponding constructor parameter.
@@ -36,34 +36,34 @@
     	<f:option value="debug" selected="${instance.isSelected('debug')}">Debug</f:option>      
     </select>
   </f:entry>
-  <f:entry title="${%Commands}" help="${rootURL}/plugin/buckminster/help-projectCommands.html">
+  <f:entry title="${%Commands}" help="/plugin/buckminster/help-projectCommands.html">
     <!--
       Creates an text field that shows the value of the "commands" property.
       When submitted, it will be passed to the corresponding constructor parameter.
     -->
     <f:textarea name="eclipse.commands" value="${instance.getCommands()}" />
    </f:entry>
-   <f:entry title="${%Script File}" field="userCommand" help="${rootURL}/plugin/buckminster/help-customCommand.html">
+   <f:entry title="${%Script File}" field="userCommand" help="/plugin/buckminster/help-customCommand.html">
        <f:textbox  name="userCommand"  value="${instance.getUserCommand()}" />
    </f:entry>
 
     <f:advanced>
-       	<f:entry title="${%Change Workspace}" help="${rootURL}/plugin/buckminster/help-customWorkspace.html">
+       	<f:entry title="${%Change Workspace}" help="/plugin/buckminster/help-customWorkspace.html">
     		<f:textbox name="userWorkspace" value="${instance.getUserWorkspace()}" />
    		 </f:entry>
-   		<f:entry title="${%Change Output Dir}" help="${rootURL}/plugin/buckminster/help-customOutput.html">
+   		<f:entry title="${%Change Output Dir}" help="/plugin/buckminster/help-customOutput.html">
     		<f:textbox name="userOutput" value="${instance.getUserOutput()}" />
    		 </f:entry>
-     	  <f:entry title="${%Change Temp Dir}" help="${rootURL}/plugin/buckminster/help-customTemp.html">
+     	  <f:entry title="${%Change Temp Dir}" help="/plugin/buckminster/help-customTemp.html">
     		<f:textbox name="userTemp" value="${instance.getUserTemp()}" />
    		 </f:entry>
-   		 <f:entry title="${%Global Properties File}" help="${rootURL}/plugin/buckminster/help-globalProperties.html">
+   		 <f:entry title="${%Global Properties File}" help="/plugin/buckminster/help-globalProperties.html">
     		<f:textbox name="globalPropertiesFile" value="${instance.getGlobalPropertiesFile()}" />
    		 </f:entry>
- 		 <f:entry title="${%JVM Arguments}" help="${rootURL}/plugin/buckminster/help-jobVMArgs.html">
+ 		 <f:entry title="${%JVM Arguments}" help="/plugin/buckminster/help-jobVMArgs.html">
     		<f:textarea name="eclipse.params" value="${instance.getParams()}" />
    		 </f:entry>
-   		 <f:entry title="${%Equinox Launcher Arguments}" help="${rootURL}/plugin/buckminster/help-equinoxArgs.html">
+   		 <f:entry title="${%Equinox Launcher Arguments}" help="/plugin/buckminster/help-equinoxArgs.html">
     		<f:textarea name="equinoxLauncherArgs" value="${instance.getEquinoxLauncherArgs()}" />
    		 </f:entry>
    </f:advanced>

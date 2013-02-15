@@ -2,10 +2,10 @@
   <f:entry title="${%Name}" field="name">
     <f:textbox/>
   </f:entry>
-  <f:entry title="${%Installation directory}" field="home" help="${rootURL}/plugin/buckminster/help-globalEclipseHome.html">
+  <f:entry title="${%Installation directory}" field="home" help="/plugin/buckminster/help-globalEclipseHome.html">
     <f:textbox/>
   </f:entry>
-    <f:entry title="${%additional.params}" field="params" description="${%additional.params.description}" help="${rootURL}/plugin/buckminster/help-globalParams.html">
+    <f:entry title="${%additional.params}" field="params" description="${%additional.params.description}" help="/plugin/buckminster/help-globalParams.html">
       <f:textarea name="eclipse.params" value="${inst.getParams()}" default="-Xmx256m"/>
   </f:entry>
 </j:jelly>

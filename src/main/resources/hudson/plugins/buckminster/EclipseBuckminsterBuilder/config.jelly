@@ -46,7 +46,7 @@
    <f:entry title="${%Script File}" field="userCommand" help="${rootURL}/plugin/buckminster/help-customCommand.html">
        <f:textbox  name="userCommand"  value="${instance.getUserCommand()}" />
    </f:entry>
-   <f:section title="Advanced Options">
+
     <f:advanced>
        	<f:entry title="${%Change Workspace}" help="${rootURL}/plugin/buckminster/help-customWorkspace.html">
     		<f:textbox name="userWorkspace" value="${instance.getUserWorkspace()}" />
@@ -67,5 +67,5 @@
     		<f:textarea name="equinoxLauncherArgs" value="${instance.getEquinoxLauncherArgs()}" />
    		 </f:entry>
    </f:advanced>
-</f:section>
+
 </j:jelly>

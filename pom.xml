@@ -11,8 +11,8 @@
 	<name>Buckminster</name>
 	<version>1.1.1-SNAPSHOT</version>
 
-	<description>Integrates Eclipse Buckminster as a builder in Hudson</description>
-	<url>http://wiki.hudson-ci.org/display/HUDSON/Buckminster+PlugIn</url>
+	<description>Integrates Eclipse Buckminster as a builder in Jenkins</description>
+	<url>https://wiki.jenkins-ci.org/display/JENKINS/Buckminster+PlugIn</url>
 	<developers>
 		<developer>
 			<id>jutzig</id>
@@ -20,7 +20,7 @@
 			<email>mail@jutzig.de</email>
 		</developer>
 		<developer>
-			<id>LorenzoBettini</id>
+			<id>lorebett</id>
 			<name>Lorenzo Bettini</name>
 			<email>bettini@dsi.unifi.it</email>
 		</developer>
@@ -34,14 +34,10 @@
 	</distributionManagement>
 
   <scm>
-    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
+    <connection>scm:git:git://github.com/jenkinsci/buckminster-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/buckminster-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/buckminster-plugin</url>
   </scm>
-
-
-	<properties>
-		<java.net.id>jutzig</java.net.id>
-	</properties>
 
     <repositories>
         <repository>

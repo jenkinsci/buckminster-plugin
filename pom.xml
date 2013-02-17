@@ -9,7 +9,7 @@
 	<artifactId>buckminster</artifactId>
 	<packaging>hpi</packaging>
 	<name>Buckminster</name>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 
 	<description>Integrates Eclipse Buckminster as a builder in Jenkins</description>
 	<url>https://wiki.jenkins-ci.org/display/JENKINS/Buckminster+PlugIn</url>

@@ -1,0 +1,93 @@
+{"buckminsters":[
+	{"id":"3.5",
+	"name":"Buckminster 3.5",
+	"url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",
+	"iu":"org.eclipse.buckminster.cmdline.product",
+	"repositoryURL":"http://download.eclipse.org/tools/buckminster/headless-3.5",
+	"repositories":[
+		{"url":"http://download.eclipse.org/tools/buckminster/headless-3.5/",
+		"features":[
+			{"id":"org.eclipse.buckminster.core.headless.feature"},
+			{"id":"org.eclipse.equinox.p2.director.feature"},
+			{"id":"org.eclipse.buckminster.cvs.headless.feature"},
+			{"id":"org.eclipse.buckminster.pde.headless.feature"},
+			{"id":"org.eclipse.buckminster.maven.feature"},
+			{"id":"org.eclipse.buckminster.aggregator.engine.feature"}]},
+
+		{"url":"http://download.cloudsmith.com/buckminster/external/",
+		"features":[
+			{"id":"org.eclipse.buckminster.subclipse.headless.feature"}]}
+	]},
+
+	{"id":"3.6",
+	"name":"Buckminster 3.6",
+	"url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",
+	"iu":"org.eclipse.buckminster.cmdline.product",
+	"repositoryURL":"http://download.eclipse.org/tools/buckminster/headless-3.6",
+	"repositories":[
+		{"url":"http://download.eclipse.org/tools/buckminster/headless-3.6/",
+		"features":[
+			{"id":"org.eclipse.buckminster.core.headless.feature"},
+			{"id":"org.eclipse.buckminster.cvs.headless.feature"},
+			{"id":"org.eclipse.buckminster.pde.headless.feature"},
+			{"id":"org.eclipse.buckminster.maven.headless.feature"},
+			{"id":"org.eclipse.equinox.p2.director.feature"},
+			{"id":"org.eclipse.buckminster.emma.headless.feature"},
+			{"id":"org.eclipse.buckminster.git.headless.feature"}]},
+
+		{"url":"http://download.cloudsmith.com/buckminster/external-3.6",
+		"features":[
+			{"id":"org.eclipse.buckminster.subclipse.headless.feature"}]}
+	]},
+
+       {"id":"3.7",
+         "name":"Buckminster 3.7",
+         "url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",
+         "iu":"org.eclipse.buckminster.cmdline.product",
+         "repositoryURL":"http://download.eclipse.org/tools/buckminster/headless-3.7",
+         "repositories":[
+               { "url":"http://download.eclipse.org/tools/buckminster/headless-3.7",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.core.headless.feature"},
+                       {"id":"org.eclipse.buckminster.cvs.headless.feature"},
+                       {"id":"org.eclipse.buckminster.emma.headless.feature"},
+                       {"id":"org.eclipse.buckminster.git.headless.feature"},
+                       {"id":"org.eclipse.buckminster.maven.headless.feature"},
+                       {"id":"org.eclipse.buckminster.pde.headless.feature"}
+                  ]},
+
+                  {"url":"http://download.cloudsmith.com/buckminster/external-3.7",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.subclipse.headless.feature"}
+                  ]
+              }
+         ]
+     },
+
+	{"id":"4.2",
+	"name":"Buckminster 4.2",
+	"url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",
+	"iu":"org.eclipse.buckminster.cmdline.product",
+	"repositoryURL":"http://download.eclipse.org/tools/buckminster/headless-4.2",
+	"repositories":[
+		{ "url":"http://download.eclipse.org/tools/buckminster/headless-4.2",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.core.headless.feature"},
+                       {"id":"org.eclipse.buckminster.cvs.headless.feature"},
+                       {"id":"org.eclipse.buckminster.git.headless.feature"},
+                       {"id":"org.eclipse.buckminster.maven.headless.feature"},
+                       {"id":"org.eclipse.buckminster.pde.headless.feature"}
+                  ]
+		},
+
+		{"url":"http://download.cloudsmith.com/buckminster/external-4.2",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.subclipse.headless.feature"},
+                       {"id":"org.eclipse.buckminster.emma.headless.feature"}
+                  ]
+		}
+
+	]
+	}
+  ]
+}

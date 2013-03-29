@@ -1,4 +1,30 @@
 {"buckminsters":[
+	{"id":"4.3",
+	"name":"Buckminster 4.3",
+	"url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",
+	"iu":"org.eclipse.buckminster.cmdline.product",
+	"repositoryURL":"http://download.eclipse.org/tools/buckminster/headless-4.3",
+	"repositories":[
+		{ "url":"http://download.eclipse.org/tools/buckminster/headless-4.3",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.core.headless.feature"},
+                       {"id":"org.eclipse.buckminster.cvs.headless.feature"},
+                       {"id":"org.eclipse.buckminster.git.headless.feature"},
+                       {"id":"org.eclipse.buckminster.maven.headless.feature"},
+                       {"id":"org.eclipse.buckminster.pde.headless.feature"}
+                  ]
+		},
+
+		{"url":"http://download.cloudsmith.com/buckminster/external-4.3",
+                   "features":[
+                       {"id":"org.eclipse.buckminster.subclipse.headless.feature"},
+                       {"id":"org.eclipse.buckminster.emma.headless.feature"}
+                  ]
+		}
+
+	]
+	},
+
 	{"id":"4.2",
 	"name":"Buckminster 4.2",
 	"url":"http://download.eclipse.org/tools/buckminster/products/director_latest.zip",

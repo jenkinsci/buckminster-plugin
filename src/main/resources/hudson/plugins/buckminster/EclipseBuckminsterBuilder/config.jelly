@@ -29,12 +29,7 @@
   </f:entry>
   
   <f:entry title="${%Buckminster Log Level}">
-    <select class="setting-input" name="eclipse.logLevel">
-    	<f:option value="info" selected="${instance.isSelected('info')}">Info (Default)</f:option>
-    	<f:option value="error" selected="${instance.isSelected('error')}">Error</f:option>
-    	<f:option value="warning" selected="${instance.isSelected('warning')}">Warning</f:option>
-    	<f:option value="debug" selected="${instance.isSelected('debug')}">Debug</f:option>      
-    </select>
+    <f:textbox name="eclipse.logLevel" value="${instance.getLogLevel()}"/>
   </f:entry>
   <f:entry title="${%Commands}" help="/plugin/buckminster/help-projectCommands.html">
     <!--

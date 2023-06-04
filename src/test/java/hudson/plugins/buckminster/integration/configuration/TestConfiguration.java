@@ -8,7 +8,7 @@ import hudson.plugins.buckminster.integration.BuckminsterTestCase;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import org.htmlunit.ElementNotFoundException;
 
 public class TestConfiguration extends BuckminsterTestCase {
 	
